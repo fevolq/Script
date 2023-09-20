@@ -197,5 +197,15 @@ def catch_error(ignore_errors: List[type(Exception)] = None, raise_error: bool =
     return do
 
 
+def timer(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        print(f'{func.__name__} 消耗时间：{time.time() - start} s')
+        return result
+    return wrapper
+
+
 def is_linux():
     return platform.system().lower() == 'linux'
