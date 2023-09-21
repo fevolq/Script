@@ -19,7 +19,7 @@ from typing import List, Union, Callable
 import pytz
 
 
-def now_time(*, fmt: str = "%Y-%m-%d %H:%M:%S", tz: str = "Asia/Shanghai"):
+def now_time(*, fmt: str = "%Y-%m-%d %H:%M:%S", tz: str = "Asia/Shanghai") -> str:
     return datetime.datetime.strftime(datetime.datetime.now(pytz.timezone(tz)), fmt)
 
 
@@ -204,6 +204,7 @@ def timer(func):
         result = func(*args, **kwargs)
         print(f'{func.__name__} 消耗时间：{time.time() - start} s')
         return result
+
     return wrapper
 
 
