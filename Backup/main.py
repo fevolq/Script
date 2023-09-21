@@ -72,7 +72,7 @@ class Zip:
 
 
 class Upload:
-    PORT = 81
+    PORT = conf.AliLoginPort
 
     def __init__(self):
         self.ali = Aligo(port=self.PORT)
