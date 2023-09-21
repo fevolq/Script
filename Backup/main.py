@@ -31,10 +31,17 @@ class Zip:
             self.target = io.BytesIO()
 
     async def zip_folder(self, zipf, folder):
+
+        def write_file(file_path):
+            try:
+                zipf.write(file_path, os.path.relpath(file_path, self.src_path))
+            except Exception as e:
+                print(str(e))
+
         async def write_folder(root, files):
             for file in files:
                 file_path = os.path.join(root, file)
-                zipf.write(file_path, os.path.relpath(file_path, self.src_path))
+                write_file(file_path)
 
         tasks = (write_folder(root_, files_) for root_, _, files_ in os.walk(folder))
 
@@ -50,6 +57,19 @@ class Zip:
 
         if self.is_stream is None:
             self.target.seek(0)
+
+
+class Upload:
+
+    def __init__(self, target, is_stream):
+        pass
+
+
+def main(source, output):
+    zip_obj = Zip(source_path, output_zip)
+    zip_obj.run()
+
+    Upload(zip_obj.target, zip_obj.is_stream)
 
 
 if __name__ == '__main__':
@@ -69,4 +89,4 @@ if __name__ == '__main__':
 
     assert source_path, 'Missing parameters: source_path'
 
-    Zip(source_path, output_zip).run()
+    main(source_path, output_zip)
