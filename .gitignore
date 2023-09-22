@@ -10,6 +10,7 @@ temp/
 demo/
 log/
 logs/
+data
 
 *.log
 local_config.py

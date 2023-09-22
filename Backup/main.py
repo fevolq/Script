@@ -118,7 +118,7 @@ def main(source, output, name, path):
 
 if __name__ == '__main__':
     source_path = ''  # 源文件（夹）路径
-    output_zip = '../data'  # 输出路径（完成后删除，空则使用流数据）
+    output_zip = os.path.join(os.path.abspath(__file__), '../data')  # 输出路径（完成后删除，空则使用流数据）
     output_name = None  # 输出名称（默认基于source_path）
 
     ali_folder_path = '/备份/Volume'  # 阿里云盘的保存路径
