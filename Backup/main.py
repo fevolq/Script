@@ -6,7 +6,9 @@
 import asyncio
 import getopt
 import io
+import random
 import sys
+import time
 import zipfile
 import os
 from typing import Union
@@ -92,9 +94,15 @@ class Upload:
         new_remote_folder = f'{remote_folder}/{current_date}'
 
         exist = self.ali.get_folder_by_path(new_remote_folder)
+        n = 1
+        while exist is None and n <= 3:
+            n += 1
+            time.sleep(random.randint(1, 3))
+            exist = self.ali.get_folder_by_path(new_remote_folder)
+
         if exist is None:
             remote = self.ali.get_folder_by_path(remote_folder)
-            self.ali.create_folder(current_date, remote.file_id)
+            self.ali.create_folder(current_date, remote.file_id, check_name_mode='refuse')
 
         new_remote = self.ali.get_folder_by_path(new_remote_folder)
         result = self.ali.upload_file(target, parent_file_id=new_remote.file_id, name=name, check_name_mode=mode)
