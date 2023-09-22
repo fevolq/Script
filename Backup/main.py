@@ -35,9 +35,10 @@ class Zip:
         self.is_stream = False  # 是否为流数据
 
         if output_path:
+            output_path = os.path.realpath(output_path)
+            util.mkdir(output_path)
             self.is_stream = False
             self.target = os.path.join(output_path, f'{self.target_name}.zip')
-            util.mkdir(output_path)
         else:
             self.is_stream = True
             self.target = io.BytesIO()

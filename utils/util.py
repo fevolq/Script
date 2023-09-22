@@ -147,6 +147,7 @@ def mkdir(path):
     :param path:
     :return:
     """
+    path = os.path.realpath(path)
     if not os.path.exists(path):
         os.makedirs(path)
 
